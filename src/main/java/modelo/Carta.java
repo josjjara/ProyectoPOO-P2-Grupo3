@@ -5,6 +5,7 @@
  */
 package modelo;
 import java.io.*;
+import java.util.Objects;
 /**
  *
  * @author emily
@@ -29,6 +30,25 @@ public class Carta {
         return nombre;
     }
     
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Carta other = (Carta) obj;
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        } else{
+            return true;
+        }
+    }
 
 }
 

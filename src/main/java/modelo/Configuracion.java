@@ -11,4 +11,9 @@ package modelo;
 public class Configuracion {
     private boolean visible;
     private int numOponentes;
+    
+    public Configuracion(int numOponentes, boolean visible){
+        this.numOponentes = numOponentes;
+        this.visible = visible;    
+    }
 }
