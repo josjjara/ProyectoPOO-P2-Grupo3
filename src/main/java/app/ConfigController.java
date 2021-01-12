@@ -19,6 +19,7 @@ public class ConfigController {
     public void initialize() throws IOException{
         comboOpcion.getItems().addAll("1 Oponente","2 Oponentes");
         botonReporte.setOnMouseClicked(ev ->{
+            
             App.setRoot("primary");
         });
     }
