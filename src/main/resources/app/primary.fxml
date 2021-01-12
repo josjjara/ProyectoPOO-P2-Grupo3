@@ -12,8 +12,8 @@
          <font>
             <Font size="25.0" />
          </font></Label>
-      <Button id="buttonJuego" prefHeight="25.0" prefWidth="100.0" text="Juego Nuevo" />
-      <Button id="buttonReporte" mnemonicParsing="false" onAction="#switchToSecondary" prefHeight="25.0" prefWidth="100.0" text="Reporte" />
+      <Button id="buttonJuego" onAction="#switchToJuego" prefHeight="25.0" prefWidth="100.0" text="Juego Nuevo" />
+      <Button id="buttonReporte" mnemonicParsing="false" onAction="#switchToReporte" prefHeight="25.0" prefWidth="100.0" text="Reportes" />
       <Button id="buttonConfig" mnemonicParsing="false" onAction="#switchToConfig" prefHeight="25.0" prefWidth="100.0" text="Configuración" />
    </children>
    <padding>

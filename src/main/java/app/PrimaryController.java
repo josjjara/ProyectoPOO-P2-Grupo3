@@ -11,11 +11,16 @@ public class PrimaryController {
     @FXML Button botonReporte;
     
     @FXML
-    private void switchToSecondary() throws IOException {
+    private void switchToReporte() throws IOException {
         App.setRoot("reporte");
     }
     @FXML
     private void switchToConfig() throws IOException{
         App.setRoot("configuracion");
     }   
+    
+    @FXML
+    private void switchToJuego() throws IOException{
+        App.setRoot("juego");
+    }
 }

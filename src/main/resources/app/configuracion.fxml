@@ -21,12 +21,20 @@
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
       </CheckBox>
-      <ComboBox fx:id="comboOpcion" prefHeight="25.0" prefWidth="220.0" promptText="Cantidad de oponentes">
+      <Label text="Cantidad de Oponentes">
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </Label>
+      <ComboBox fx:id="comboOpcion" prefHeight="25.0" prefWidth="220.0" promptText="Escoger cantidad">
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>
       </ComboBox>
-      <Button fx:id="botonReporte" mnemonicParsing="false" text="Aceptar" textAlignment="CENTER" />
+      <Button fx:id="botonAceptar" mnemonicParsing="false" text="Aceptar" textAlignment="CENTER" />
    </children>
 </VBox>

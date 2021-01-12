@@ -11,4 +11,13 @@ package modelo;
 public class Jugador {
     private String nombre;
     private Tablero tablero;
+    
+    public Jugador(String nombre, Tablero tablero){
+        this.nombre = nombre;
+        this.tablero = tablero;
+    }
+    
+    public String getNombre(){
+        return nombre;
+    }
 }

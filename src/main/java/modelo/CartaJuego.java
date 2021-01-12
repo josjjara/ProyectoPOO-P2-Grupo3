@@ -16,5 +16,11 @@ public class CartaJuego implements Serializable{
     private Carta carta;
     private boolean marcada;     
     
+    public CartaJuego(Carta carta, boolean marcada){
+        this.carta = carta;
+        this.marcada = marcada;
+        
+    }
+    
     public void marcarCarta(){}
 }
