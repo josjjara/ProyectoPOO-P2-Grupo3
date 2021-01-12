@@ -9,7 +9,7 @@ import java.io.*;
  *
  * @author emily
  */
-public class Carta implements Serializable{
+public class Carta {
     private int numero;
     private String nombre;
     private String rutaImagen;
