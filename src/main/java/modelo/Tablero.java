@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author emily
  */
-public class Tablero implements Serializable{
+public class Tablero {
     private CartaJuego[] cartas = new CartaJuego[16];
     
     public void llenarTablero(ArrayList<Carta> cartas){

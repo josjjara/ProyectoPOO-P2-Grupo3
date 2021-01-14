@@ -42,7 +42,7 @@ public class ConfigController {
                 System.out.println("No se encontro directorio");
             }
             //Cambio al menu principal al aceptar las opciones
-            App.setRoot("primary");
+            //App.setRoot("primary");
         });
     }
 }
