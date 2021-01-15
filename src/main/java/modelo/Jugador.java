@@ -4,19 +4,25 @@
  * and open the template in the editor.
  */
 package modelo;
+import java.io.Serializable;
 /**
  *
  * @author emily
  */
-public class Jugador {
+public class Jugador implements Serializable{
     private String nombre;
     private Tablero tablero;
+    
+    public Jugador(){
+    }
     
     public Jugador(String nombre, Tablero tablero){
         this.nombre = nombre;
         this.tablero = tablero;
     }
-    
+    public void setNombre(String nom){
+        nombre = nom;
+    }
     public String getNombre(){
         return nombre;
     }
