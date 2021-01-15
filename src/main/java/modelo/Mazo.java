@@ -48,6 +48,9 @@ public class Mazo {
             } catch (IOException e) {
                 e.printStackTrace(); }
             }
+    public Carta getCarta(int i){
+        return cartas.get(i);
+    }
 }
     
 

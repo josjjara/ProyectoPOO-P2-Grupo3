@@ -16,13 +16,16 @@ import java.util.ArrayList;
  * @author emily
  */
 public class Tablero {
-    private CartaJuego[] cartas = new CartaJuego[16];
+    private CartaJuego[] cartasTab = new CartaJuego[16];
     
     public void llenarTablero(ArrayList<Carta> cartas){
-        int cont=0;
-        while (cont<16){
-            
+        Mazo mz = new Mazo();
+        mz.obtenerCarta();
+        mz.barajar();
+        for (int i = 0; i<16; i++){
+            cartasTab[i] = new CartaJuego(mz.getCarta(i), false);
         }
+        
     }
 
 }
