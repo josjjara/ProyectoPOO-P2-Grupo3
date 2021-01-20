@@ -26,6 +26,8 @@ public class Mazo {
         for(Carta c: cartas){
            System.out.println(c);} }
     
+
+    
     //metodo de lectura de archivo
     public void obtenerCarta() {
     //lectura de archivo cartasloteria.csv

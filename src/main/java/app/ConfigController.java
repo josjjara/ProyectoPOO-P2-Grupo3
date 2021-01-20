@@ -17,7 +17,7 @@ public class ConfigController {
     @FXML 
     ComboBox<String> comboOpcion;
     @FXML 
-    Button botonAceptar;
+    Button botonAceptar;    
 
     public void initialize() throws IOException{
         comboOpcion.getItems().addAll("1 Oponente","2 Oponentes");
@@ -45,4 +45,5 @@ public class ConfigController {
             //App.setRoot("primary");
         });
     }
+    
 }

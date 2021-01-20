@@ -12,7 +12,7 @@ import java.io.Serializable;
  *
  * @author emily
  */
-public class CartaJuego implements Serializable{
+public class CartaJuego{
     private Carta carta;
     private boolean marcada;     
     

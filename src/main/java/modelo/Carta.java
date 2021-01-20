@@ -31,6 +31,10 @@ public class Carta {
     }
     
     
+    public String getRutaImagen(){
+        return rutaImagen;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
