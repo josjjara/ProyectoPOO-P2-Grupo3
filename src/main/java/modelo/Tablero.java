@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Tablero {
     private CartaJuego[] cartasTab = new CartaJuego[16];
     
-    public void llenarTablero(ArrayList<Carta> cartas){
+    public void llenarTablero(){
         Mazo mz = new Mazo();
         mz.obtenerCarta();
         mz.barajar();

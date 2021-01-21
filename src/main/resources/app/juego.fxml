@@ -155,7 +155,7 @@
       </GridPane>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <ImageView fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imvCartaActual" fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
                   <Insets bottom="25.0" left="12.0" right="12.0" top="133.0" />
                </VBox.margin></ImageView>
@@ -167,7 +167,7 @@
             <Label fx:id="tiempoCarta" text="Tiempo" />
          </children>
       </VBox>
-      <Button fx:id="botonLoteria" mnemonicParsing="false" prefHeight="600.0" prefWidth="60.0" text="LOTERIA!" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="botonLoteria" mnemonicParsing="false" prefHeight="582.0" prefWidth="48.0" text="LOTERIA!" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="22.0" />
          </font>

@@ -52,4 +52,7 @@ public class Juego implements Serializable {
     public Alineacion getAlineacion(){
         return alineacion;
     }
+    public void verificarTablero(){
+        
+    }
 }

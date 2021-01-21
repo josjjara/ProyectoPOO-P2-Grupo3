@@ -41,7 +41,7 @@ public class Mazo {
                 int cont=1;
                 while ((linea = br1.readLine()) != null) {
                     // para cada linea se crea una lista de Strings que se usaran para crear el producto y añadirlo al arreglo
-                    String ruta = "src\\main\\resources\\images\\deck\\"+String.valueOf(cont)+".png";
+                    String ruta = "images\\deck\\"+String.valueOf(cont)+".png";
                     String[] dato = linea.split(",");
                     int dato0 = Integer.parseInt(dato[0]);
                     cartas.add( new Carta (dato0,dato[1],ruta));
@@ -52,6 +52,9 @@ public class Mazo {
             }
     public Carta getCarta(int i){
         return cartas.get(i);
+    }
+    public ArrayList<Carta> getMazo(){
+        return cartas;
     }
 }
     
