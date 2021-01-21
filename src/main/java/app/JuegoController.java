@@ -84,8 +84,8 @@ public class JuegoController {
                     imgvbean.setImage(imgbean);
                      //Label lbx = new Label(pathbean);
                     sp.getChildren().add(imgvbean);
-                    imgvbean.setFitHeight(30);
-                    imgvbean.setFitWidth(50);
+                    imgvbean.setFitHeight(40);
+                    imgvbean.setFitWidth(52);
                 } catch (FileNotFoundException ex) {
                     ex.printStackTrace();
                 }
