@@ -4,7 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import modelo.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,60 +39,56 @@ public class JuegoController {
     @FXML
     private Button botonLoteria;
     
+    ArrayList<Integer> numeros = new ArrayList();
     
-    private int nRows = 4;
-    private int nColm = 4;
-    private static final double ELEMENT_SIZE = 100;
-    private static final double GAP = ELEMENT_SIZE/10;
+    private String path= "C:/Users/emily/Documents/NetBeansProjects/ProyectoPOO-Grupo3/src/main/resources/images/deck/";//10.png";
+    private String pathbean = "C:/Users/emily/Documents/NetBeansProjects/ProyectoPOO-Grupo3/src/main/resources/images/frejol.png";
 
-
-    /*
-    public static void mostrarCarta(){
-        Tablero tab1 = new Tablero
-        for (Carta c:cartas){
-            GridPane gridTabler = new GridPane();
-            ImageView img = new ImageView();
-            try{
-                input = new FileInputStream(App.pathImg + c.getRutaImagen());
-                
-                Image img = new Image
-            }
-        }
-               
-
-    public void initialize() throws FileNotFoundException {
-            GridPane gpane = new GridPane(); 
-            FileInputStream imageStream = new FileInputStream("images/loteriamx.jpg");
-            Image image = new Image(imageStream); 
-            gpane.getChildren().add(new ImageView(image));
-            gpane.add(new ImageView(image), 0, 0);
-    }*/
+   
     @FXML
-    private void initialize() throws FileNotFoundException{
+    private void initialize() {
         for (int i=0;i<16;i++){
-            GridPane gp = new GridPane();
             int fila = i/4;
             int columna = i%4;
+            
+            Random r = new Random(); 
+            int aleatorio = r.nextInt(54)+1;
+            while (numeros.contains(aleatorio)){
+              aleatorio = r.nextInt(54)+1;
+                }
+            numeros.add(aleatorio);
 
-            Label lb = new Label("ejem");
-            String workingDir = System.getProperty("user.dir");
-            var url = workingDir + "\\src\\main\\resources\\images\\deck\\10.png";
-            FileInputStream f;
+            StackPane sp = new StackPane();
+            
             try {
-                f = new FileInputStream(new File(url));
-                Image img = new Image(f);
+                
+                FileInputStream imageStream = new FileInputStream(path+aleatorio+".png");
+                Image img = new Image(imageStream);
+                ImageView imgv = new ImageView();
+                imgv.setImage(img);
+                sp.getChildren().add(imgv);          
+                gridTablero.add(sp,columna,fila);
+                imgv.setFitHeight(199);
+                imgv.setFitWidth(100);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            }
-            System.out.println("URL= "+url);
-            //FileInputStream imageStream = new FileInputStream("images/loteriamx.jpg");*/           
-            gp.getChildren().add(new ImageView(url));
-            gridTablero.add(new ImageView(url), columna, fila);
-            gp.getChildren().add(lb);
-            gridTablero.add(gp,columna,fila); 
-            lb.setOnMouseClicked(e->{
-              Label lbx = new Label("X");
-              gp.getChildren().add(lbx);
+            } 
+
+               
+            sp.setOnMouseClicked(e->{
+                FileInputStream imageStream;
+                try {
+                    imageStream = new FileInputStream(pathbean);
+                    Image imgbean = new Image(imageStream);
+                    ImageView imgvbean = new ImageView();
+                    imgvbean.setImage(imgbean);
+                     //Label lbx = new Label(pathbean);
+                    sp.getChildren().add(imgvbean);
+                    imgvbean.setFitHeight(30);
+                    imgvbean.setFitWidth(50);
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
             });    
         }
     }

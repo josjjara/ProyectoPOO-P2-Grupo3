@@ -4,11 +4,14 @@
  * and open the template in the editor.
  */
 package modelo;
+
+import java.io.Serializable;
+
 /*
  *
  * @author emily
  */
-public class Configuracion {
+public class Configuracion implements Serializable{
     private boolean visible;
     private int numOponentes;
     

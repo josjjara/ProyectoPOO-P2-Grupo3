@@ -41,8 +41,12 @@ public class ConfigController {
             }catch(IOException e){
                 System.out.println("No se encontro directorio");
             }
-            //Cambio al menu principal al aceptar las opciones
-            //App.setRoot("primary");
+            try {
+                //Cambio al menu principal al aceptar las opciones
+                App.setRoot("primary");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
     }
     
