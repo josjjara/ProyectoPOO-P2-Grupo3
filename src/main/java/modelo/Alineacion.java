@@ -5,12 +5,14 @@
  */
 package modelo;
 
+import java.io.Serializable;
 /**
  *
- * @author emily
+ * @author Jose
  */
-public enum Alineacion {
-    ESQUINA,
+public enum Alineacion implements Serializable {
+    ESQUINAS,
     FILA,
-    COLUMNA
+    COLUMNA,
+    ESQUINAJUNTA,
 }

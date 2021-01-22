@@ -1,1 +1,1 @@
-true,1 Oponente
+true,2 Oponentes

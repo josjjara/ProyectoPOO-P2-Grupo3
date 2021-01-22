@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -18,15 +19,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-
+import javafx.scene.text.Text;
 /**
  *
  * @author Jose
  */
 public class JuegoController {
-
-    private static FileInputStream input;
-    
+    Carta cartaActual;
     @FXML
     private GridPane gridTablero;
 
@@ -34,7 +33,7 @@ public class JuegoController {
     private Label nomCarta;
 
     @FXML
-    private Label tiempoCarta;
+    private Text tiempoCarta;
 
     @FXML
     private Button botonLoteria;
@@ -42,70 +41,97 @@ public class JuegoController {
     private ImageView imvCartaActual;
     
     
-    public class CartaEnJuego extends Thread{
-        Mazo mazoCartas;
-        Carta cartaActual;
-        
+    public class CartaEnJuego implements Runnable{
+        private ArrayList<Carta> mazoCartas;
+        private int count = 0;
+
+        private void incrementCount() {
+            count++;
+            tiempoCarta.setText(Integer.toString(count));
+        }
         @Override
-        public void run() {
-            mazoCartas = new Mazo();
-            mazoCartas.obtenerCarta();
-            mazoCartas.barajar();
-            setDaemon(true);
+        public void run(){
+            Tablero tableroTemp = new Tablero();
+            tableroTemp.obtenerMazo();tableroTemp.barajarMazo();
+            mazoCartas = tableroTemp.getMazo();
+            
             ArrayList<Integer> numerosA = new ArrayList();
             while(true){
-                Random r = new Random();
+                Random r = new Random(); 
                 int aleatorio = r.nextInt(54);
                 while (numerosA.contains(aleatorio)){
                     aleatorio = r.nextInt(54);
-                    }
-                numerosA.add(aleatorio);
-                cartaActual = mazoCartas.getMazo().get(aleatorio);
-                imvCartaActual.setImage(new Image("images/deck/"+cartaActual.getNumero()+".png"));
-                for(int i=0;i<4;i++){
-                    tiempoCarta.setText(String.valueOf(i));
+                 }
+                count = 0;
+                tiempoCarta.setText(Integer.toString(count));
+                cartaActual = mazoCartas.get(aleatorio);
+              
+                Platform.runLater(()->{
+                   try{
+                       imvCartaActual.setImage(new Image(cartaActual.getRuta()));
+                   }catch(Exception e){
+                      System.out.println(cartaActual.getRuta());
+                      System.out.println("No encontrado");
+                   } 
+                });
+
+                for(int i=0;i<3;i++){
                     try{
-                        sleep(1000);
+                        Thread.sleep(1000);
                     }catch(InterruptedException e){
-                        
+
                     }
+                    Platform.runLater(()->{
+                            incrementCount();          
+                     });                
                 }
-            
+                numerosA.add(aleatorio);
            }
         }
-    }
+    } 
     @FXML
     private void initialize(){
-        CartaEnJuego cartaJuego = new CartaEnJuego();
-        cartaJuego.start();
+        Thread cambiarCarta = new Thread(new CartaEnJuego());
+        cambiarCarta.setDaemon(true);
+        cambiarCarta.start();
+        
+        Tablero tableroJuego= new Tablero();
+        tableroJuego.obtenerMazo(); tableroJuego.barajarMazo();
+        cartaActual = tableroJuego.getMazo().get(1);
+        imvCartaActual.setImage(new Image(cartaActual.getRuta()));
+        
+        
         ArrayList<Integer> numeros = new ArrayList();
         for (int i=0;i<16;i++){
             int fila = i/4;
             int columna = i%4;
-            
-            Random r = new Random(); 
-            int aleatorio = r.nextInt(54)+1;
-            while (numeros.contains(aleatorio)){
-              aleatorio = r.nextInt(54)+1;
-                }
-            numeros.add(aleatorio);
-
+            tableroJuego.getTablero().add(tableroJuego.getMazo().get(i));
+            Carta nuevaCarta =  tableroJuego.getTablero().get(i);
+            nuevaCarta.setIndice(i);
             StackPane sp = new StackPane();
-            ImageView imgv = new ImageView(new Image("images/deck/"+aleatorio+".png"));
+            ImageView imgv = new ImageView(new Image(nuevaCarta.getRuta()));
             sp.getChildren().add(imgv);          
             gridTablero.add(sp,columna,fila);
             imgv.setFitHeight(150);
             imgv.setFitWidth(100);
-
+            imgv.setId(nuevaCarta.getNombre());
+            
             sp.setOnMouseClicked(e->{
-
-            ImageView imgvbean = new ImageView(new Image("images/frejol.png"));
+                ImageView imgvbean = new ImageView(new Image("images/frejol.png"));
 
                      //Label lbx = new Label(pathbean);
-                    sp.getChildren().add(imgvbean);
-                    imgvbean.setFitHeight(40);
-                    imgvbean.setFitWidth(52);
-            });    
+                    if(sp.getChildren().get(0).getId().equals(cartaActual.getNombre())){
+                        sp.getChildren().add(imgvbean);
+                        imgvbean.setFitHeight(40);
+                        imgvbean.setFitWidth(52);
+                        nuevaCarta.marcarCarta();
+                    }         
+                }); 
+            
+            botonLoteria.setOnMouseClicked(e->{
+            gridTablero.getChildren().toArray();
+            });
+            
         }
     }
 
