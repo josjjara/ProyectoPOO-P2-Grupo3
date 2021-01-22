@@ -26,6 +26,7 @@ import javafx.scene.text.Text;
  */
 public class JuegoController {
     Carta cartaActual;
+    Tablero tableroJuego;
     @FXML
     private GridPane gridTablero;
 
@@ -89,13 +90,39 @@ public class JuegoController {
            }
         }
     } 
+    public class ErrorMarcar implements Runnable{
+        StackPane sp;
+        
+        public ErrorMarcar(StackPane sp){
+            this.sp = sp;
+        }
+        @Override
+        public void run(){
+            ImageView cross = new ImageView(new Image("images/redCross.png"));
+            cross.setFitHeight(75);
+            cross.setFitWidth(75);
+            Platform.runLater(()->{
+                sp.getChildren().add(cross);
+                });
+            try{
+                Thread.sleep(2000);
+            }catch(InterruptedException e){
+
+            }
+            Platform.runLater(()->{
+                sp.getChildren().remove(cross);
+            });
+            
+        }
+        
+    }
     @FXML
     private void initialize(){
         Thread cambiarCarta = new Thread(new CartaEnJuego());
         cambiarCarta.setDaemon(true);
         cambiarCarta.start();
         
-        Tablero tableroJuego= new Tablero();
+        tableroJuego= new Tablero();
         tableroJuego.obtenerMazo(); tableroJuego.barajarMazo();
         cartaActual = tableroJuego.getMazo().get(1);
         imvCartaActual.setImage(new Image(cartaActual.getRuta()));
@@ -125,10 +152,15 @@ public class JuegoController {
                         imgvbean.setFitHeight(40);
                         imgvbean.setFitWidth(52);
                         nuevaCarta.marcarCarta();
+                    }else{
+                        Thread error = new Thread (new ErrorMarcar(sp));
+                        error.setDaemon(true);
+                        error.start();          
                     }         
                 }); 
             
             botonLoteria.setOnMouseClicked(e->{
+                
             gridTablero.getChildren().toArray();
             });
             
