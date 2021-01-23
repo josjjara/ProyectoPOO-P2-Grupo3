@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package modelo;
+import java.util.Date;
 import java.io.Serializable;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -22,6 +23,16 @@ public class Juego implements Serializable {
     private double duracion;
     
     public Juego(){
+        
+    }
+    public Juego(String nombre,Alineacion alineacion,String oponentes,String visible,double duracion){
+            Date hoy = new Date();
+            fecha = hoy.toString().split(":")[0];
+            this.nombreJugador = nombre;
+            this.alineacionJuego = alineacion;
+            this.oponentes = oponentes;
+            this.oponenteVisible = Boolean.valueOf(visible);
+            this.duracion = duracion;
         
     }
     public void iniciarJuego(){

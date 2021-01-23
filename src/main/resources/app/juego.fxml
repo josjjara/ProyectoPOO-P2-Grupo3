@@ -15,9 +15,9 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="582.0" prefWidth="950.0" spacing="30.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.JuegoController">
    <children>
-      <VBox prefHeight="582.0" prefWidth="215.0">
+      <VBox alignment="TOP_CENTER" prefHeight="582.0" prefWidth="215.0">
          <children>
-            <GridPane gridLinesVisible="true">
+            <GridPane fx:id="gpOponente1" gridLinesVisible="true">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -34,8 +34,8 @@
                   <Insets left="36.0" right="36.0" top="100.0" />
                </VBox.margin>
             </GridPane>
-            <Label text="Label" />
-            <GridPane gridLinesVisible="true">
+            <Label fx:id="lblOp1" text="Label" />
+            <GridPane fx:id="gpOponente2" gridLinesVisible="true">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -52,7 +52,7 @@
                   <Insets left="36.0" right="36.0" top="111.0" />
                </VBox.margin>
             </GridPane>
-            <Label text="Label" />
+            <Label fx:id="lblOp2" text="Label" />
          </children>
       </VBox>
       <GridPane fx:id="gridTablero" gridLinesVisible="true" prefHeight="500.0" prefWidth="400.0">
@@ -156,15 +156,12 @@
       </GridPane>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
+            <Label fx:id="lblAlineacion" text="Alineacion" />
+            <ImageView fx:id="imvAlineacion" fitHeight="98.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="imvCartaActual" fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
                   <Insets bottom="25.0" left="12.0" right="12.0" top="133.0" />
                </VBox.margin></ImageView>
-            <Label fx:id="nomCarta" alignment="CENTER" contentDisplay="CENTER" text="Nombre Carta" textAlignment="CENTER">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
             <Text fx:id="tiempoCarta" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
          </children>
       </VBox>

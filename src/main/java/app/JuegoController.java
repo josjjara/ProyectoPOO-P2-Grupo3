@@ -27,15 +27,25 @@ import javafx.scene.text.Text;
 public class JuegoController {
     Carta cartaActual;
     Tablero tableroJuego;
+    Boolean sigueJugando;
+    @FXML
+    Label lblOp1;
+    @FXML
+    Label lblOp2;
+    @FXML
+    GridPane gpOponente1;
+    @FXML
+    GridPane gpOponente2;
+    @FXML
+    Label lblAlineacion;
+    @FXML
+    ImageView imvAlineacion;
     @FXML
     private GridPane gridTablero;
-
     @FXML
     private Label nomCarta;
-
     @FXML
     private Text tiempoCarta;
-
     @FXML
     private Button botonLoteria;
     @FXML
@@ -44,7 +54,7 @@ public class JuegoController {
     
     public class CartaEnJuego implements Runnable{
         private ArrayList<Carta> mazoCartas;
-        private int count = 0;
+        private int count = 1;
 
         private void incrementCount() {
             count++;
