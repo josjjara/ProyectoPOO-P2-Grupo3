@@ -1,15 +1,21 @@
 package app;
 
-import java.io.IOException;
+import modelo.*;
+import java.util.ArrayList;  
+
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
-import java.io.FileReader;
-import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 
+
 public class ReporteController {
-   
+    public ArrayList<Juego> juegosAnteriores;
     @FXML
     VBox vBoxReporte;  //Vbox de los reportes
     
@@ -19,22 +25,46 @@ public class ReporteController {
         App.setRoot("primary");
     }
     
-    public void initialize() throws IOException{
-        
-        int numReporte = 1; //Contador para el numero de linea
-        //Se intenta leer el archivo txt con los reportes y se añade cada linea al vBox como una Label
-        try(BufferedReader file = new BufferedReader(new FileReader("data\\reporte.txt"))){
-            String linea = file.readLine();
-            while(linea != null){
-            String lineaReporte = numReporte + ")  "+ linea;
-            Label labelReporte = new Label(lineaReporte); //Se crea la label para la linea
-            vBoxReporte.getChildren().add(labelReporte);
-            linea = file.readLine();
+    public void leerReporte(){   
+        try{
+            ObjectInputStream obj = new ObjectInputStream(new FileInputStream("data/reporte.ser"));
+            juegosAnteriores = (ArrayList<Juego>)obj.readObject();
+            obj.close();
+        }catch(IOException e){
+            System.out.println("No se encontro archivo,generando vacio");
+            try(FileWriter f= new FileWriter("data/reporte.ser")){
+                
+            }catch(IOException IOe){           
             }
-        }catch(IOException e){//Si no se encuentra el archivo, se crea uno vacio
-            System.out.println("No se encontro archivo o directorio...creando archivo");
-            FileWriter nuevoReporte = new FileWriter("data\\reporte.txt");
+        }catch(ClassNotFoundException eC ){
+            System.out.println("No se encontro clase Juego");
+        } 
+    }
+    
+    public void generarReporte(Juego j){
+        leerReporte();
+        juegosAnteriores.add(j);
+        try{
+            ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("data/reporte.ser"));
+            obj.writeObject(juegosAnteriores);
+        }catch(Exception e){
+            System.out.println("Error");
         }
     }
     
+    public void initialize(){  
+            juegosAnteriores = new ArrayList<>();
+            vBoxReporte.getChildren().clear();
+            leerReporte();
+            int indice = 1;
+            if(juegosAnteriores != null){
+                for(Juego j: juegosAnteriores){
+                vBoxReporte.getChildren().add(new Label(indice+")\t"+j.toString()));
+                }
+                
+            }else{
+                vBoxReporte.getChildren().add(new Label("No hay registro de juegos anteriores"));
+            }
+ 
+    }
 }

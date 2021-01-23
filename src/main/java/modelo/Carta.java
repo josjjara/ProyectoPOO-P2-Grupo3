@@ -6,6 +6,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.Objects;
 /**
  *
  * @author Jose
@@ -43,6 +44,23 @@ public class Carta implements Serializable {
     }
     public void setIndice(int ind){
         indice =ind;
+    }
+    @Override
+        public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Carta other = (Carta) obj;
+        if (!this.nombre.equals(other.nombre)) {
+            return false;
+        }
+        return true;
     }
     
     

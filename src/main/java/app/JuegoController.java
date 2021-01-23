@@ -1,25 +1,23 @@
 package app;
-import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import modelo.*;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Random;
-import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.scene.control.TextInputDialog;
 /**
  *
  * @author Jose
@@ -28,14 +26,9 @@ public class JuegoController {
     Carta cartaActual;
     Tablero tableroJuego;
     Boolean sigueJugando;
+    Juego juegoPrincipal;
     @FXML
-    Label lblOp1;
-    @FXML
-    Label lblOp2;
-    @FXML
-    GridPane gpOponente1;
-    @FXML
-    GridPane gpOponente2;
+    VBox vBoxOponentes;
     @FXML
     Label lblAlineacion;
     @FXML
@@ -51,7 +44,39 @@ public class JuegoController {
     @FXML
     private ImageView imvCartaActual;
     
-    
+    public class ThreadEnemigo implements Runnable{
+        
+        @Override 
+        public void run(){
+           if(juegoPrincipal.getVisible()){
+               Tablero tableroEnem = new Tablero();
+               tableroEnem.obtenerMazo();tableroEnem.barajarMazo();
+               //Llenar tablero enemigo
+               
+               for(int i =0;i<16;i++){
+                   tableroEnem.getTablero().add(tableroEnem.getMazo().get(i));
+                    int fila = i/4;
+                    int columna = i%4;
+                    ImageView backOp = new ImageView("images/deck/back.png");
+                    
+                    
+               }
+               
+               
+               while(sigueJugando){
+                   if(tableroEnem.getTablero().contains(cartaActual)){
+                       
+                       
+                   }
+               }
+               
+           }else{
+               
+           }
+            
+            
+           }
+        }
     public class CartaEnJuego implements Runnable{
         private ArrayList<Carta> mazoCartas;
         private int count = 1;
@@ -128,6 +153,13 @@ public class JuegoController {
     }
     @FXML
     private void initialize(){
+        TextInputDialog alert = new TextInputDialog();
+        alert.setTitle("Iniciar Nuevo Juego");
+        alert.setHeaderText("Ingresar Nombre de Jugador");
+        alert.setContentText("Ingrese nombre de jugador para empezar el juego");
+        Optional<String> result = alert.showAndWait();
+        String nombreJugador = alert.getResult();   
+        
         Thread cambiarCarta = new Thread(new CartaEnJuego());
         cambiarCarta.setDaemon(true);
         cambiarCarta.start();
@@ -177,5 +209,4 @@ public class JuegoController {
         }
     }
 
-     
-    }
+}

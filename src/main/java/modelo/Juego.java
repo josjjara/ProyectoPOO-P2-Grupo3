@@ -72,5 +72,23 @@ public class Juego implements Serializable {
         return fecha;
     }
     
-    
+    @Override
+    public String toString(){
+        String linea = fecha+",\t"+duracion+",\t"+nombreJugador+",\t"+oponentes+",\t";
+        switch(alineacionJuego){
+            case ESQUINAS:
+                linea += "Esquinas";
+                break;
+            case FILA:
+                linea += "Fila";
+                break;
+            case COLUMNA:
+                linea += "Columna";
+                break;
+            case ESQUINAJUNTA:
+                linea += "4 Esquina Junta";
+                break;
+        }
+        return linea;
+    }
 }
