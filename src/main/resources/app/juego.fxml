@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="582.0" prefWidth="950.0" spacing="30.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.JuegoController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="582.0" prefWidth="950.0" spacing="30.0" style="-fx-background-color: tcream;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.JuegoController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="582.0" prefWidth="215.0">
          <children>
@@ -31,10 +31,17 @@
                   <RowConstraints maxHeight="43.999975585937506" minHeight="10.0" prefHeight="28.79998779296875" vgrow="SOMETIMES" />
                </rowConstraints>
                <VBox.margin>
-                  <Insets left="36.0" right="36.0" top="100.0" />
+                  <Insets top="60.0" />
                </VBox.margin>
             </GridPane>
-            <Label fx:id="lblOp1" text="Label" />
+            <Label fx:id="lblOp1" text="Oponente">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
             <GridPane fx:id="gpOponente2" gridLinesVisible="true">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -52,10 +59,13 @@
                   <Insets left="36.0" right="36.0" top="111.0" />
                </VBox.margin>
             </GridPane>
-            <Label fx:id="lblOp2" text="Label" />
+            <Label fx:id="lblOp2" text="Oponente">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
          </children>
       </VBox>
-      <GridPane fx:id="gridTablero" gridLinesVisible="true" prefHeight="500.0" prefWidth="400.0">
+      <GridPane fx:id="gridTablero" gridLinesVisible="true" prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: khaki;">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -156,18 +166,21 @@
       </GridPane>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Label fx:id="lblAlineacion" text="Alineacion" />
-            <ImageView fx:id="imvAlineacion" fitHeight="98.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="lblAlineacion" prefHeight="27.0" prefWidth="13.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <ImageView fx:id="imvAlineacion" fitHeight="173.0" fitWidth="148.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="imvCartaActual" fitHeight="240.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
-                  <Insets bottom="25.0" left="12.0" right="12.0" top="133.0" />
+                  <Insets bottom="25.0" left="12.0" right="12.0" top="73.0" />
                </VBox.margin></ImageView>
             <Text fx:id="tiempoCarta" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
          </children>
       </VBox>
-      <Button fx:id="botonLoteria" mnemonicParsing="false" prefHeight="582.0" prefWidth="48.0" text="LOTERIA!" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="botonLoteria" defaultButton="true" mnemonicParsing="false" prefHeight="582.0" prefWidth="48.0" style="-fx-background-color: moccasin;" text="LOTERIA!" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font size="22.0" />
+            <Font name="Comic Sans MS" size="22.0" />
          </font>
          <HBox.margin>
             <Insets right="5.0" />

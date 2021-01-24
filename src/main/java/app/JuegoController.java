@@ -1,5 +1,6 @@
 package app;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import modelo.*;
@@ -163,6 +164,14 @@ public class JuegoController {
         Thread cambiarCarta = new Thread(new CartaEnJuego());
         cambiarCarta.setDaemon(true);
         cambiarCarta.start();
+        
+        String[] alList = new String[] {"ESQUINAS","FILA","COLUMNA","ESQUINAJUNTA"};
+        Random rd = new Random(); 
+        int indice = rd.nextInt(4);
+        String al = alList[indice];
+        String rutaAl = "images/"+al+".png";
+        Image imagen = new Image(rutaAl);
+        imvAlineacion.setImage(imagen);
         
         tableroJuego= new Tablero();
         tableroJuego.obtenerMazo(); tableroJuego.barajarMazo();
