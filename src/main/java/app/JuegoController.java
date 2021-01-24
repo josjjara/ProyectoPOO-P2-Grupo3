@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import modelo.*;
+import modelo.Alineacion;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -165,10 +166,13 @@ public class JuegoController {
         cambiarCarta.setDaemon(true);
         cambiarCarta.start();
         
+        //Se escoge aleatorioamente la alineacion
         String[] alList = new String[] {"ESQUINAS","FILA","COLUMNA","ESQUINAJUNTA"};
         Random rd = new Random(); 
         int indice = rd.nextInt(4);
         String al = alList[indice];
+        Alineacion alEnum = Alineacion.valueOf(al);
+        //Imagen que presenta la alineacion con la que se jugara la partida
         String rutaAl = "images/"+al+".png";
         Image imagen = new Image(rutaAl);
         imvAlineacion.setImage(imagen);
@@ -211,8 +215,15 @@ public class JuegoController {
                 }); 
             
             botonLoteria.setOnMouseClicked(e->{
-                
-            gridTablero.getChildren().toArray();
+            if (tableroJuego.chequearTablero(alEnum)){
+                System.out.println("holi");
+                        
+                try {
+                    App.setRoot("emergente");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            } 
             });
             
         }
