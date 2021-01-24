@@ -57,7 +57,8 @@ public class Tablero {
         return tablero;
     }    
         public boolean chequearTablero(Alineacion alineacion){
-        switch(alineacion){
+        System.out.println("Checkeando alineacion");
+            switch(alineacion){
             case ESQUINAS:
                 if(tablero.get(0).estaMarcada()&&
                    tablero.get(3).estaMarcada()&&
@@ -67,7 +68,7 @@ public class Tablero {
                 }
                 break;
             case FILA:
-                for(int i=0;i<17;i+=4){
+                for(int i=0;i<16;i+=4){
                     if(tablero.get(i).estaMarcada()&&
                        tablero.get(i+1).estaMarcada()&&
                        tablero.get(i+2).estaMarcada()&&

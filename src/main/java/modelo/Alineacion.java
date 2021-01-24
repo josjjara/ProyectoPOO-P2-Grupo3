@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import java.util.Random;
 import java.io.Serializable;
 /**
  *
@@ -14,5 +15,13 @@ public enum Alineacion implements Serializable {
     ESQUINAS,
     FILA,
     COLUMNA,
-    ESQUINAJUNTA,
+    ESQUINAJUNTA;
+    
+        public static Alineacion generarAlineacion() {
+            Alineacion[] values = Alineacion.values();
+            int length = values.length;
+            int randIndex = new Random().nextInt(length);
+            return values[randIndex];
+        }
+    
 }

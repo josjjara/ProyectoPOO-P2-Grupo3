@@ -15,7 +15,7 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="582.0" prefWidth="950.0" spacing="30.0" style="-fx-background-color: tcream;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.JuegoController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="582.0" prefWidth="215.0">
+      <VBox fx:id="vBoxOponentes" alignment="TOP_CENTER" prefHeight="582.0" prefWidth="215.0">
          <children>
             <GridPane fx:id="gpOponente1" gridLinesVisible="true">
                <columnConstraints>

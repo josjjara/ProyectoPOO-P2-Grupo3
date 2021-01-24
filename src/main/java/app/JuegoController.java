@@ -1,8 +1,10 @@
 package app;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import modelo.*;
 import modelo.Alineacion;
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.util.Optional;
 import java.util.Random;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
@@ -45,40 +48,86 @@ public class JuegoController {
     private Button botonLoteria;
     @FXML
     private ImageView imvCartaActual;
-    
+    @FXML
+    GridPane gpOponente1;
+    @FXML
+    GridPane gpOponente2;
     public class ThreadEnemigo implements Runnable{
-        
+        String numOponente;
+        GridPane gpTab;
+        public ThreadEnemigo(String numOponente){
+            this.numOponente = numOponente;
+        }
+        private StackPane getStackPane(GridPane gridPane, int col, int row) {
+            for (Node node : gridPane.getChildren()) {
+                if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+                    StackPane sp = (StackPane)node;
+                    return sp;
+                }
+            }
+        return null;
+        }
         @Override 
         public void run(){
-           if(juegoPrincipal.getVisible()){
-               Tablero tableroEnem = new Tablero();
-               tableroEnem.obtenerMazo();tableroEnem.barajarMazo();
-               //Llenar tablero enemigo
-               
-               for(int i =0;i<16;i++){
-                   tableroEnem.getTablero().add(tableroEnem.getMazo().get(i));
+            
+           
+            Tablero tableroEnem = new Tablero();
+            tableroEnem.obtenerMazo();tableroEnem.barajarMazo();
+            //Llenar tablero enemigo
+            GridPane gridOponente = new GridPane();
+          
+                for(int i =0;i<16;i++){
+                    tableroEnem.getTablero().add(tableroEnem.getMazo().get(i));
                     int fila = i/4;
                     int columna = i%4;
                     ImageView backOp = new ImageView("images/deck/back.png");
+                    backOp.setFitHeight(40);
+                    backOp.setFitWidth(30);
+                    StackPane spOp = new StackPane();
+                    spOp.getChildren().add(backOp);
+                    System.out.println(columna+" "+fila);
+                    gridOponente.add(spOp,columna,fila); 
                     
-                    
-               }
-               
-               
-               while(sigueJugando){
-                   if(tableroEnem.getTablero().contains(cartaActual)){
-                       
-                       
-                   }
-               }
-               
-           }else{
-               
-           }
-            
-            
-           }
+                }
+                gpTab = gridOponente;
+                Platform.runLater(()->{
+                vBoxOponentes.getChildren().add(gridOponente);
+                vBoxOponentes.getChildren().add(new Label(numOponente));
+                
+                });
+           
+                
+            while(sigueJugando){
+                
+                try{
+                    Thread.sleep(1000);
+                }catch(InterruptedException e){}
+                if(tableroEnem.getTablero().contains(cartaActual)){      
+                    int indice = tableroEnem.getTablero().indexOf(cartaActual);
+                    int fil = indice/4; int col = indice%4;            
+                    StackPane spMatch = getStackPane(gridOponente,col,fil);
+                    if(juegoPrincipal.getVisible()){
+                        ImageView imgMatch = new ImageView("images/deck/match.png");
+                        spMatch.getChildren().add(imgMatch);
+                        tableroEnem.getTablero().get(indice).marcarCarta();                        
+                        System.out.println("match carta");
+                    }
+                    if(!juegoPrincipal.getVisible()){
+                        tableroEnem.getTablero().get(indice).marcarCarta();
+                        System.out.println("match carta");
+                    }
+                }
+                try{
+                    Thread.sleep(2000);
+                }catch(InterruptedException e){}
+                if(tableroEnem.chequearTablero(juegoPrincipal.getAlineacionJuego())){
+                    System.out.println("Gano Oponente");
+                    sigueJugando = false;
+                }
+            }       
         }
+    }
+    
     public class CartaEnJuego implements Runnable{
         private ArrayList<Carta> mazoCartas;
         private int count = 1;
@@ -155,6 +204,9 @@ public class JuegoController {
     }
     @FXML
     private void initialize(){
+        sigueJugando = true;
+        vBoxOponentes = new VBox();
+        
         TextInputDialog alert = new TextInputDialog();
         alert.setTitle("Iniciar Nuevo Juego");
         alert.setHeaderText("Ingresar Nombre de Jugador");
@@ -176,7 +228,32 @@ public class JuegoController {
         String rutaAl = "images/"+al+".png";
         Image imagen = new Image(rutaAl);
         imvAlineacion.setImage(imagen);
-        
+        String numOponentes;String strOpVusible;
+        //Intenta buscar un archivo de config para el Juego actual
+        try(BufferedReader file = new BufferedReader(new FileReader("data\\configuracion.txt"))){
+            //Si encuentra archivo, lee las opciones
+            String[] stringConfig = file.readLine().split(",");
+            numOponentes = stringConfig[1];
+            strOpVusible = stringConfig[0];
+        }catch(IOException e){
+            //En este caso no se crea un archivo nuevo si no se encuentra inicialmente
+            System.out.println("No se encontro archivo"); 
+            numOponentes = "1 Oponente";
+            strOpVusible = "true";
+        }
+        //Nuevo Juego
+        juegoPrincipal = new Juego(nombreJugador,Alineacion.generarAlineacion(),numOponentes,strOpVusible,0);
+        int numOp;
+        if(numOponentes.equals("1 Oponente")){
+            numOp = 1;
+        }else{
+            numOp = 2;
+        }
+        for(int x =0;x<numOp;x++){
+            Thread enemigo = new Thread(new ThreadEnemigo("Oponente "+(x+1)));
+            enemigo.setDaemon(true);enemigo.start();
+            
+        }        
         tableroJuego= new Tablero();
         tableroJuego.obtenerMazo(); tableroJuego.barajarMazo();
         cartaActual = tableroJuego.getMazo().get(1);
@@ -224,8 +301,7 @@ public class JuegoController {
                     ex.printStackTrace();
                 }
             } 
-            });
-            
+            });  
         }
     }
 
